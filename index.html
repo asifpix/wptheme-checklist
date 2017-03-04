@@ -22,21 +22,102 @@
 				<div class="row">
 					<div class="col-md-9">
 						<div class="well well-lg">
-							<h4><span class="label label-primary">1.</span> Check Validation </h4>
+							<h4><span class="label label-primary">1</span> Check Validation </h4>
 							<p>May have Some of your files contain validation errors that will need to be fixed. Please be sure that all files validate before resubmitting. You have to validate HTML at</p>
 							<p>Link: <a href="http://validator.w3.org" target="_blank">http://validator.w3.org</a></p>
 
-							<h4><span class="label label-primary">2.</span> No Image Placeholders </h4>
+							<h4><span class="label label-primary">2</span> No Image Placeholders </h4>
 							<p>No image placeholders, if user doesn't want an image, nothing should display. Theme still needs to work properly without them.</p>
 							<div class="thumbnail">
 								<img src="assets/images/issue-2.png" alt="issue-2">
 							</div>
 
-							<h4><span class="label label-primary">3.</span> Sticky Post </h4>
+							<h4><span class="label label-primary">3</span> Sticky Post </h4>
 							<p>Sticky post should be distinctly recognizable in some way in comparison to normal posts.</p>
 
-							<h4><span class="label label-primary">4.</span> PHP Error, notice or warnings </h4>
+							<h4><span class="label label-primary">4</span> PHP Error, notice or warnings </h4>
 							<p>Please make sure that your theme doesn't raise any PHP errors, notices or warnings. Enabling wp_debug can help you with this.</p>
+
+							<h4><span class="label label-primary">5</span> Testing blog/post layout/functionality </h4>
+							<p>How to test the blog/posts layout/functionality - Import the Theme Unit Test [<a href="https://codex.wordpress.org/Theme_Unit_Test" target="_blank"> http://codex.wordpress.org/Theme_Unit_Test</a>] file and make sure that:</p>
+							<p>- Posts display correctly, with no apparent visual problems or errors.</p>
+							<p>- Posts display in correct order.</p>
+							<p>- Page navigation displays and works correctly.</p>
+							<p>- As "sticky posts" are a core feature, the theme should style and display them appropriately.</p>
+							<p>- Lack of body text should not adversely impact the layout.</p>
+							<p>- Theme must incorporate both the "Tag" and the "Category" taxonomies in some manner.</p>
+							<p>- Floats are cleared properly for floated element (thumbnail image) at the end of the post content.</p>
+
+							<h4><span class="label label-primary">6</span> wp_head </h4>
+							<p>wp_head should be placed immediately before head closing tag.</p>
+
+							<h4><span class="label label-primary">7</span> Scripts and styles </h4>
+							<p>Scripts and styles should not be hardcoded anywhere in your theme or added any other way but with wp_enqueue_* hook and to be added from the functions file. This includes custom JS/CSS.</p>
+							<p>For inline styles use: <a href="https://developer.wordpress.org/reference/functions/wp_add_inline_style/" target="_blank">wp_add_inline_style()</a> and for scripts <a href="https://developer.wordpress.org/reference/functions/wp_add_inline_script/" target="_blank">wp_add_inline_script()</a></p>
+							
+							<h4><span class="label label-primary">8</span> Third party scripts/ styles </h4>
+							<p>Third party scripts/ styles don’t need to be prefixed to avoid double loading.</p>
+							<p>Ref: <a href="https://github.com/WordPress/twentysixteen/blob/master/functions.php#L236" target="_blank">https://github.com/WordPress/twentysixteen/blob/master/functions.php#L236</a></p>
+							
+							<h4><span class="label label-primary">9</span> jQuery </h4>
+							<p>There is no need to use the function wp_enqueue_script just to insert jQuery, since jQuery can be called for those scripts which need it passing the argument array(‘jquery’).</p>
+
+							<h4><span class="label label-primary">10</span> Unique prefix </h4>
+							<p>Please use a unique prefix (preferably the theme name or framework name) for all function names, custom images sizes, classes, hooks, public/global variables, and database entries to avoid conflict issues with plugins and other themes. For example, themename_ OR frameworkname_.</p>
+							<p>Read more at <a href="http://themereview.co/prefix-all-the-things/">http://themereview.co/prefix-all-the-things/</a></p>
+							<p>- You can still be using frameworkname_ if you are using a framework while using themename_ for your themes.</p>
+							<div class="thumbnail">
+								<img src="assets/images/issue-10.png" alt="issue-10">
+							</div>
+
+							<h4><span class="label label-primary">11</span> Data Validation </h4>
+							<p> issues have been found in your theme. All dynamic data must be correctly escaped for the context where it is rendered. - All dynamic data must be escaped with esc_attr() before rendered in an html attribute. - Whenever you are rendering a url to the screen its value must be passed through esc_url() first. - If dynamic data is rendered inside an attribute that triggers a JavaScript event, it must be escaped with esc_js().</p>
+							<p>Please make sure you read these articles:</p>
+							<ol>
+								<li><a href="https://make.wordpress.org/themes/tags/writing-secure-themes/" target="_blank">Writing Secure Themes</a></li>
+								<li><a href="https://vip.wordpress.com/documentation/vip/best-practices/security/validating-sanitizing-escaping/" target="_blank">Validating, Sanitizing, and Escaping</a></li>
+								<li><a href="https://code.tutsplus.com/articles/data-sanitization-and-validation-with-wordpress--wp-25536" target="_blank">Data Sanitization and Validation With WordPress</a></li>
+								<li><a href="https://developer.wordpress.com/themes/escaping/" target="_blank">Escaping</a></li>
+								<li><a href="https://codex.wordpress.org/Data_Validation" target="_blank">Data Validation</a></li>
+							</ol>
+
+							<h4><span class="label label-primary">12</span> wp_reset_query </h4>
+							<p>wp_reset_query - if you’re not using query_posts(), then you really shouldn’t be messing with the main $wp_query variable, as wp_reset_query() does.<br>
+query_posts() will change your main query and is not recommended. Only use if absolutely necessary </p>
+							<p><a href="https://codex.wordpress.org/Function_Reference/wp_reset_query">wp reset query()</a></p>
+							<div class="alert alert-info">
+								<p>Try <code>wp_reset_postdata()</code> instead.</p>
+							</div>
+
+							<h4><span class="label label-primary">13</span> Escape URL </h4>
+							<p>Always use esc_url when sanitizing URLs, including WordPress related, also, all home_url() must include a trailing slash such as home_url(‘/‘)</p>
+							<div class="thumbnail">
+								<img src="assets/images/issue-13.png" alt="issue-10">
+							</div>
+							<p>See: <a href="https://codex.wordpress.org/Function_Reference/esc_url">esc_url()</a></p>
+
+							<h4><span class="label label-primary">14</span> File path </h4>
+							<p>Use an appropriate path when including theme files:</p>
+							<ul>
+								<li>get_template_directory(): Returns the absolute template directory path.</li>
+								<li>get_template_directory_uri(): Returns the template directory URI.</li>
+								<li>get_stylesheet_directory(): Returns the absolute stylesheet directory path.</li>
+								<li>get_stylesheet_directory_uri(): Returns the stylesheet directory URI.</li>
+							</ul>
+							<div class="alert alert-warning"><p class="warnings">Don’t use: dirname(FILE), basename( FILE ) or anything else not listed above.</p></div>
+
+							<h4><span class="label label-primary">15</span> Text strings </h4>
+							<p>All theme text strings are to be translatable and properly escaped.</p>
+							<div class="thumbnail">
+								<img src="assets/images/issue-15.png" alt="issue-15">
+							</div>
+							<p>See: <a href="https://gist.github.com/kailoon/01fa8e95d2e910e666c6">Translation</a></p>
+
+							<h4><span class="label label-primary">15</span> Google fonts </h4>
+							<p>Enqueue the Google fonts the right way.</p>
+							<p>See: <a href="https://gist.github.com/kailoon/e2dc2a04a8bd5034682c">Google Font</a></p>
+							<p>Good read: <a href="https://themeshaper.com/2014/08/13/how-to-add-google-fonts-to-wordpress-themes/">Add Google fonts to WordPress themes</a></p>
+
 						</div>
 					</div>
 					<div class="col-md-3 ">
